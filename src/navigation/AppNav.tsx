@@ -9,7 +9,11 @@ import MainNav from "./MainNav";
 import { useDispatch } from "react-redux";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
+import { setId } from "../redux/slices/UserSlice";
 import { setToken } from "../redux/slices/UserSlice";
+
+import jwtDecode from "jwt-decode";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,12 +26,15 @@ const AppNav = () => {
     const token = await AsyncStorage.getItem("token");
     if (token) {
       dispatch(setToken(token));
+      const { _id }:any = jwtDecode(token)
+      dispatch(setId(_id))
       navigation.navigate("MainNav");
     }
   };
 
   useEffect(() => {
     getToken();
+
   }, []);
   return (
     <>
