@@ -3,9 +3,9 @@ import { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { CodeField, Cursor } from "react-native-confirmation-code-field";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserSelector } from "../../models/UserModels";
-import jwtDecode from "jwt-decode";
+
 
 import { submitPin } from "../../api/authapi";
 
@@ -13,9 +13,15 @@ import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import jwtDecode from "jwt-decode";
+
+import { setId, setToken } from "../../redux/slices/UserSlice";
 
 const Pin = () => {
   const [pin, setPin] = useState<string>("");
+
+  const dispatch = useDispatch();
+
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   const tempToken = useSelector((state: UserSelector) => state.user.tempToken);
@@ -24,7 +30,14 @@ const Pin = () => {
   const onSubmitPin = async () => {
     try {
       const response = submitPin(pin, _id, tempToken);
-      await AsyncStorage.setItem("token", (await response).data?.token);
+      const token = (await response).data.token;
+
+      await AsyncStorage.setItem("token", token);
+      dispatch(setToken(token));
+      
+      const { _id:id }:any = jwtDecode(token)
+      dispatch(setId(id))
+
       navigation.navigate("MainNav", { screen: "profile" });
     } catch (err) {
       console.error(err);
