@@ -27,7 +27,7 @@ const AppNav = () => {
   };
 
   useEffect(() => {
-    getToken();
+    // getToken();
   }, []);
   return (
     <>
