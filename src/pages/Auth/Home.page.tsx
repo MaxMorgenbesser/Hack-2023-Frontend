@@ -1,11 +1,14 @@
 import { useState } from "react";
+
 import {
   TextInput,
   StyleSheet,
   Text,
+  Image,
   Pressable,
   Keyboard,
   TouchableOpacity,
+  View,
 } from "react-native";
 
 import { useDispatch } from "react-redux";
@@ -39,19 +42,32 @@ const Home = () => {
 
   return (
     <Pressable style={styles.ctr} onPress={() => Keyboard.dismiss()}>
-      <Text>Please enter phone number</Text>
+      <Image
+        source={require("../../navigation/images/acs-logo.png")}
+        style={styles.logo}
+      />
+
+      <Text></Text>
+      <Text></Text>
       <TextInput
         keyboardType="number-pad"
         style={styles.input}
         value={number}
         onChangeText={(value) => setNumber(formatPhoneNumber(value, number))}
+        placeholder="Enter your phone number"
       ></TextInput>
+      <Text></Text>
+      <Text>we will send you an authentication code</Text>
       <TouchableOpacity
         style={styles.button}
         onPress={() => pressSubmitNumber()}
       >
         <Text>Submit Number</Text>
       </TouchableOpacity>
+      <View style={styles.bottomText}>
+        <Text>Cancer information, answers, and hope.</Text>
+        <Text>Available every minute of every day.</Text>
+      </View>
     </Pressable>
   );
 };
@@ -60,21 +76,38 @@ const styles = StyleSheet.create({
   ctr: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "pink",
+    backgroundColor: "#fff",
+
+    zIndex: -1,
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
+    color: "white",
   },
   input: {
     backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 2,
+    borderRadius: 5,
     width: "80%",
     height: "10%",
+    textAlign: "center",
   },
   button: {
     marginTop: 30,
-    backgroundColor: "blue",
+    backgroundColor: "#2746f8",
+    borderRadius: 5,
     padding: 10,
-    color: "white",
+    borderColor: "white",
+  },
+  logo: {
+    width: 250,
+    height: 130,
+  },
+
+  bottomText: {
+    marginTop: 100,
+    textAlign: "center",
   },
 });
 
