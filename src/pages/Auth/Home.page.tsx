@@ -12,16 +12,14 @@ import { useDispatch } from "react-redux";
 import { setTempToken } from "../../redux/slices/UserSlice";
 import { submitNumber } from "../../api/authapi";
 
-
 import formatPhoneNumber from "../../utils/FormatPhoneNumber";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const Home = () => {
   const [number, setNumber] = useState<string>("");
 
-  const navigation  = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const dispatch = useDispatch();
 
   const pressSubmitNumber = async () => {
@@ -32,9 +30,8 @@ const Home = () => {
       const response = await submitNumber(number, "+1");
       if (response.data.success) {
         dispatch(setTempToken(response.data.temptoken));
-        navigation.navigate("Pin")
+        navigation.navigate("Pin");
       }
-      
     } catch (err) {
       console.error(err);
     }
@@ -49,7 +46,12 @@ const Home = () => {
         value={number}
         onChangeText={(value) => setNumber(formatPhoneNumber(value, number))}
       ></TextInput>
-      <TouchableOpacity style={styles.button}  onPress={()=>pressSubmitNumber()} ><Text>Submit Number</Text></TouchableOpacity >
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => pressSubmitNumber()}
+      >
+        <Text>Submit Number</Text>
+      </TouchableOpacity>
     </Pressable>
   );
 };
@@ -70,9 +72,9 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 30,
-    backgroundColor:"blue",
-    padding:10,
-    color:"white"
+    backgroundColor: "blue",
+    padding: 10,
+    color: "white",
   },
 });
 
