@@ -5,6 +5,7 @@ const initialState: UserModel = {
   name: "",
   tempToken: "",
   token: "",
+  _id:''
 };
 
 const UserSlice = createSlice({
@@ -16,10 +17,12 @@ const UserSlice = createSlice({
     },
     setToken(state,actions) {
         state.token = actions.payload
+    }, setId(state,actions) {
+      state._id = actions.payload
     }
   },
 });
 
-export const { setTempToken, setToken } = UserSlice.actions;
+export const { setTempToken, setToken , setId} = UserSlice.actions;
 
 export default UserSlice.reducer;
