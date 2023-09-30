@@ -35,7 +35,9 @@ const Pin = () => {
 
   return (
     <View style={styles.ctr}>
-      <FunFactsCarousel style={styles.funFacts} />
+      <View style={styles.carouselContainer}>
+        <FunFactsCarousel />
+      </View>
       <Text>Please enter the pin</Text>
       <CodeField
         value={pin}
@@ -91,9 +93,10 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderWidth: 1,
   },
-  funFacts: {
-    width: 50,
-    height: 50,
+  carouselContainer: {
+    height: 100, // Set the height for the carousel section
+    width: "100%",
+    marginBottom: 20, // Optional: To provide some space after the carousel
   },
 });
 
