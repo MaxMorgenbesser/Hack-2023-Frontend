@@ -42,10 +42,7 @@ const Home = () => {
 
   return (
     <Pressable style={styles.ctr} onPress={() => Keyboard.dismiss()}>
-      <Image
-        source={require("../../navigation/images/acs-logo.png")}
-        style={styles.logo}
-      />
+      <Image source={require("./acs-logo.png")} style={styles.logo} />
 
       <Text></Text>
       <Text></Text>

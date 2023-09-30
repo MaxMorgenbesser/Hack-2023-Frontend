@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+
 import { CodeField, Cursor } from "react-native-confirmation-code-field";
 
 import { useSelector } from "react-redux";
@@ -13,6 +14,7 @@ import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import FunFactsCarousel from "./PinComponents/FunFactCarosel"; // Assuming it's in the same directory
 
 const Pin = () => {
   const [pin, setPin] = useState<string>("");
@@ -33,6 +35,7 @@ const Pin = () => {
 
   return (
     <View style={styles.ctr}>
+      <FunFactsCarousel style={styles.funFacts} />
       <Text>Please enter the pin</Text>
       <CodeField
         value={pin}
@@ -87,6 +90,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderColor: "white",
     borderWidth: 1,
+  },
+  funFacts: {
+    width: 50,
+    height: 50,
   },
 });
 
