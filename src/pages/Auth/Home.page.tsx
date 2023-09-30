@@ -69,6 +69,7 @@ const Home = () => {
           <Icon name="rightcircleo" size={40} style={styles.submitArrow} />
         </TouchableOpacity>
       </View>
+      <Text></Text>
       <Text>{error}</Text>
       <Text></Text>
       <Text>we will send you an authentication code</Text>
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
   ctr: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "#fff",
+    backgroundColor: "#f5dbf4",
 
     zIndex: -1,
     alignItems: "center",
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
    
     paddingHorizontal: 20,
     marginTop: 20,
+    marginBottom:10,
   },
   button: {
     marginTop: 30,
@@ -115,11 +117,12 @@ const styles = StyleSheet.create({
   logo: {
     width: 260,
     height: 140,
+    // marginBottom: 70
   },
 
   bottomText: {
-    marginTop: 100,
-    textAlign: "center",
+    marginTop: 120,
+    textAlign: "center"
   },
 
   flexContainer: {
@@ -130,8 +133,10 @@ const styles = StyleSheet.create({
   },
 
   submitArrow: {
-    marginTop: 20,
+    marginTop: 10,
     marginLeft: 5,
+    // backgroundColor:"blue",
+    // borderRadius:10
   },
 });
 
