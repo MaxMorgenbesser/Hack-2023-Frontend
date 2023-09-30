@@ -6,7 +6,11 @@ const MainNav = () => {
   return (
     <>
       <Tabs.Navigator>
-        <Tabs.Screen name="profile" component={ProfilePage} />
+        <Tabs.Screen name="Get a Screening" component={ProfilePage} />
+        <Tabs.Screen name="Cancer f&q" component={ProfilePage} />
+        <Tabs.Screen name="Citations" component={ProfilePage} />
+        <Tabs.Screen name="Tracking" component={ProfilePage} />
+
       </Tabs.Navigator>
     </>
   );
