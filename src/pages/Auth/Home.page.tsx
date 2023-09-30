@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "white",
-   borderBlockColor: "black",
+   borderColor: "black",
    borderWidth: 2,
    borderRadius: 5,
     width: "80%",
@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
   },
 
   bottomText:{
-    marginTop: 100
+    marginTop: 100,
+    textAlign:"center"
 
   }
 });
