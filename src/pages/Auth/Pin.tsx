@@ -38,19 +38,21 @@ const Pin = () => {
       <View style={styles.carouselContainer}>
         <FunFactsCarousel />
       </View>
-      <Text>Please enter the pin</Text>
-      <CodeField
-        value={pin}
-        onChangeText={setPin}
-        cellCount={4}
-        keyboardType="numeric"
-        textContentType="oneTimeCode"
-        renderCell={({ index, symbol, isFocused }) => (
-          <Text style={[styles.cell]} key={index}>
-            {symbol || (isFocused ? <Cursor /> : null)}
-          </Text>
-        )}
-      />
+      <View style={styles.ctr2}>
+        <Text>Please enter the pin</Text>
+        <CodeField
+          value={pin}
+          onChangeText={setPin}
+          cellCount={4}
+          keyboardType="numeric"
+          textContentType="oneTimeCode"
+          renderCell={({ index, symbol, isFocused }) => (
+            <Text style={[styles.cell]} key={index}>
+              {symbol || (isFocused ? <Cursor /> : null)}
+            </Text>
+          )}
+        />
+      </View>
       <TouchableOpacity style={styles.button} onPress={onSubmitPin}>
         <Text>Submit Pin</Text>
       </TouchableOpacity>
@@ -60,12 +62,16 @@ const Pin = () => {
 
 const styles = StyleSheet.create({
   ctr: {
-    display: "flex",
     flexDirection: "column",
     backgroundColor: "pink",
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
+  },
+  ctr2: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
   input: {
     backgroundColor: "white",
@@ -94,9 +100,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   carouselContainer: {
-    height: 100, // Set the height for the carousel section
+    height: 120, // Adjusted height to account for padding
     width: "100%",
-    marginBottom: 20, // Optional: To provide some space after the carousel
+    marginBottom: 20,
+    padding: 10, // Add some padding around the carousel
   },
 });
 
