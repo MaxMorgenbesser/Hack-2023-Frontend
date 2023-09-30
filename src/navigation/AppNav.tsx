@@ -34,7 +34,6 @@ const AppNav = () => {
 
   useEffect(() => {
     getToken();
-
   }, []);
   return (
     <>
