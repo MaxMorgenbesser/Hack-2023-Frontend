@@ -25,13 +25,12 @@ const AppNav = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const getGooglePlaces = async () => {
     try {
-     const response =  await fetchGoogleData()
-     dispatch(setPlaces(response.data.places))
+      const response = await fetchGoogleData();
+      dispatch(setPlaces(response.data.places));
+    } catch (err) {
+      console.error(err);
     }
-    catch (err){
-      console.error(err)
-    }
-  }
+  };
   const getToken = async () => {
     const token = await AsyncStorage.getItem("token");
     if (token) {
@@ -43,7 +42,7 @@ const AppNav = () => {
   };
 
   useEffect(() => {
-    getGooglePlaces()
+    getGooglePlaces();
     getToken();
   }, []);
   return (
