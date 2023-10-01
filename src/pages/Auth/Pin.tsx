@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderWidth: 1,
   },
-
+  // carosel
   carouselContainer: {
     height: 120,
     width: "100%",
