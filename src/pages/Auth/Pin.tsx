@@ -15,6 +15,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import FunFactsCarousel from "./PinComponents/FunFactCarosel";
 import jwtDecode from "jwt-decode";
+import Icon from "react-native-vector-icons/AntDesign";
 
 import { setId, setToken } from "../../redux/slices/UserSlice";
 
@@ -53,7 +54,8 @@ const Pin = () => {
         <FunFactsCarousel />
       </View>
       <View style={styles.ctr2}>
-        <Text>Please enter the pin</Text>
+        <Text style={styles.note}>Please enter the pin</Text>
+        <Text></Text>
         <CodeField
           value={pin}
           onChangeText={setPin}
@@ -68,7 +70,8 @@ const Pin = () => {
         />
       </View>
       <TouchableOpacity style={styles.button} onPress={onSubmitPin}>
-        <Text>Submit Pin</Text>
+        {/* <Text>Submit Pin</Text> */}
+        <Icon name="rightcircleo" size={40} />
       </TouchableOpacity>
     </KeyboardAvoidingView >
   );
@@ -77,7 +80,7 @@ const Pin = () => {
 const styles = StyleSheet.create({
   ctr: {
     flexDirection: "column",
-    backgroundColor: "pink",
+    backgroundColor: "#f5dbf4",
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
@@ -87,16 +90,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  note: {
+    fontSize: 16,
+  },
+
   input: {
     backgroundColor: "white",
     width: "80%",
     height: "10%",
   },
   button: {
-    marginTop: 30,
-    backgroundColor: "blue",
-    padding: 10,
-    color: "white",
+    marginTop: 20,
+    // backgroundColor: "blue",
+    // padding: 10,
+    // color: "white",
   },
   cell: {
     backgroundColor: "#FFFFFF26",
@@ -110,10 +117,10 @@ const styles = StyleSheet.create({
     color: "black",
     fontWeight: "600",
     textAlign: "center",
-    borderColor: "white",
+    borderColor: "black",
     borderWidth: 1,
   },
-  // carosel
+
   carouselContainer: {
     height: 120,
     width: "100%",

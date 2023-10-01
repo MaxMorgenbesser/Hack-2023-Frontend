@@ -22,7 +22,7 @@ const FunFactsCarousel: React.FC = () => {
       pagerRef.current?.setPage(nextPage);
     };
 
-    const interval = setInterval(changePage, 3000); // change page every 3 seconds
+    const interval = setInterval(changePage, 4000); // change page every 3 seconds
 
     return () => clearInterval(interval); // Clear the interval when the component unmounts
   }, [currentPage, funFacts.length]);
