@@ -24,18 +24,15 @@ const Home = () => {
   const [number, setNumber] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-  const numberInputRef: any = useRef(null);
-
+  const numberInputRef = useRef(null);
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const dispatch = useDispatch();
 
   useEffect(() => {
-
     if (numberInputRef?.current) {
-      numberInputRef?.current?.focus();
+      numberInputRef?.current.focus();
     }
-
   }, []);
 
   const pressSubmitNumber = async () => {
@@ -71,6 +68,7 @@ const Home = () => {
           value={number}
           onChangeText={(value) => setNumber(formatPhoneNumber(value, number))}
           placeholder="Enter your phone number"
+          placeholderTextColor="#333"
         ></TextInput>
         <TouchableOpacity onPress={() => pressSubmitNumber()}>
           <Icon name="rightcircleo" size={40} style={styles.submitArrow} />
@@ -93,7 +91,7 @@ const styles = StyleSheet.create({
   ctr: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "#f5dbf4",
+    backgroundColor: "#F5F5F5",
 
     zIndex: -1,
     alignItems: "center",
@@ -111,6 +109,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     marginTop: 20,
     marginBottom: 10,
+
     // textAlign: "center",
   },
   button: {
