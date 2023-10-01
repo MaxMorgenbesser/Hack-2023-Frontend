@@ -24,7 +24,7 @@ const Home = () => {
   const [number, setNumber] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-  const numberInputRef = useRef(null);
+  const numberInputRef:any = useRef(null);
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const dispatch = useDispatch();
@@ -54,12 +54,9 @@ const Home = () => {
   return (
     <Pressable style={styles.ctr} onPress={() => Keyboard.dismiss()}>
       <Image
-        source={require("../../../assets/images/android-chrome-512x512.png")}
+        source={require("../../../assets/images/acs-logo.png")}
         style={styles.logo}
       />
-
-      <Text></Text>
-      <Text></Text>
       <View style={styles.flexContainer}>
         <TextInput
           ref={numberInputRef}
@@ -77,11 +74,11 @@ const Home = () => {
       </View>
       <Text>{error}</Text>
       <Text></Text>
-      <Text>We will send you an authentication code</Text>
+      
 
       <View style={styles.bottomText}>
-        <Text>Cancer information, answers, and hope.</Text>
-        <Text>Available every minute of every day.</Text>
+        <Text style={{ fontSize:20, fontWeight:"700"}}>Cancer information, answers, and hope.</Text>
+        <Text style={{ fontSize:20, fontWeight:"700"}}>Available every minute of every day.</Text>
       </View>
     </Pressable>
   );
@@ -91,7 +88,7 @@ const styles = StyleSheet.create({
   ctr: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "#F5F5F5",
+    backgroundColor: "rgba(116, 116, 253, 0.4)",
 
     zIndex: -1,
     alignItems: "center",
@@ -120,8 +117,8 @@ const styles = StyleSheet.create({
     borderColor: "white",
   },
   logo: {
-    width: 300,
-    height: 300,
+    width: 310,
+    height: 170,
   },
 
   bottomText: {

@@ -62,7 +62,7 @@ const Pin = () => {
         <FunFactsCarousel />
       </View>
       <View style={styles.ctr2}>
-        <Text style={styles.note}>Please enter the pin</Text>
+        <Text style={styles.txt}>Please enter the pin</Text>
         <Text></Text>
         <CodeField
           value={pin}
@@ -88,10 +88,14 @@ const Pin = () => {
 const styles = StyleSheet.create({
   ctr: {
     flexDirection: "column",
-    backgroundColor: "#F5F5F5",
+    backgroundColor: "rgba(116, 116, 253, 0.4)",
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
+  },
+  txt: {
+    fontSize:24,
+    fontWeight:"800"
   },
   ctr2: {
     flexDirection: "column",
