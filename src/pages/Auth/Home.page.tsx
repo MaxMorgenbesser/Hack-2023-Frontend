@@ -44,7 +44,7 @@ const Home = () => {
     <Pressable style={styles.ctr} onPress={() => Keyboard.dismiss()}>
 
       <Image
-      source={require('../../navigation/images/acs-logo.png')} 
+      source={require('../../../assets/images/acs-logo.png')} 
       style={styles.logo
       }/>
 

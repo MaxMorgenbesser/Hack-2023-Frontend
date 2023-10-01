@@ -58,6 +58,7 @@ const TrackerItem = ({ name, checked, value, _id, setActivityData, activityData 
   ) => {
     try {
       if (_id) {
+        console.log(_id)
         const response = await updateFieldApi(
           _id,
           {
@@ -68,22 +69,26 @@ const TrackerItem = ({ name, checked, value, _id, setActivityData, activityData 
           },
           token
         );
-        let data = await response.data.fields.body
+        let data = await response.data.fields
         setActivityData({...activityData, ...data})
       }
     } catch (err) {
       console.error(err);
     }
   };
+
   return (
     <TouchableOpacity
-      onPress={() => updateField(name, true, !value)}
+        // disabled={checked}
+      onPress={() => updateField(name, true, true)}
       style={[
         styles.item,
         styles.shadowProp,
         {
           borderWidth: 3,
-          borderColor: !checked ? "black" : value ? "red" : "green",
+          borderColor: !checked ? "black" : value ? "green" : "red",
+          backgroundColor:  !checked ? "rgba(247, 195, 248, 1)" : value ? "rgba(201, 242, 155, 1)" : "red",
+          opacity:!checked ? 1 : .7,
         },
       ]}
     >
@@ -95,11 +100,13 @@ const TrackerItem = ({ name, checked, value, _id, setActivityData, activityData 
 
 const styles = StyleSheet.create({
   item: {
-    width: "40%",
-    marginVertical: "3%",
-    marginHorizontal: "4%",
-    padding: 20,
-    backgroundColor: "white",
+    marginVertical: "1.5%",
+    paddingHorizontal: 20,
+    paddingVertical:10,
+  
+    display:"flex",
+    flexDirection:"row",
+    justifyContent: "space-between"
   },
   shadowProp: {
     elevation: 20,

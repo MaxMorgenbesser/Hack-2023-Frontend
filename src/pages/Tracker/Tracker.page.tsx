@@ -28,10 +28,10 @@ const TrackerPage = () => {
   useEffect(() => {
     getUserActivityData();
   }, []);
-console.log(activityData)
+
   return (
     <View style={styles.ctr}>
-        <Text style={styles.headerText}>Reduce Your Risk of Cancer</Text>
+        <Text style={styles.headerText}>Daily Cancer Risk Check</Text>
         <View style={styles.risksContainer}>
       {activityData &&
         Object.keys(activityData).map((activity, a) => {
@@ -59,9 +59,9 @@ const styles = StyleSheet.create({
         display:"flex",
         paddingVertical:"20%",
         alignItems:"center",
-        backgroundColor:"yellow",
+        justifyContent:"center",
         height:"100%",
-        paddingHorizontal:"5%"
+        paddingHorizontal:"2%"
     },
     headerText: {
         fontSize:22,
@@ -72,8 +72,7 @@ const styles = StyleSheet.create({
         marginTop:"10%",
         alignSelf:"center",
         display:"flex",
-        flexDirection:"row",
-        flexWrap:"wrap",
+        flexDirection:"column",
         justifyContent:"space-around"
     }
 
