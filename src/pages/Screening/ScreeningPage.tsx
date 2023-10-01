@@ -17,9 +17,10 @@ const ScreeningPage = () => {
     data: null,
   });
 
+  const [openQuestionPage, setOpenQuestionPage] = useState(false);
+
   const token = useSelector((state: UserSelector) => state.user.token);
   const url = API_URL + "/screening";
-  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   useEffect(() => {
     setScreeningData((oldState) => ({ ...oldState, loading: true }));
@@ -69,10 +70,16 @@ const ScreeningPage = () => {
   }
 
   if (
-    !screeningData.loading &&
-    (!screeningData.data || !Object.keys(screeningData.data).length)
+    (!screeningData.loading &&
+      (!screeningData.data || !Object.keys(screeningData.data).length)) ||
+    openQuestionPage
   ) {
-    return <QuestionnairePage onSubmitPressed={postQuestions} />;
+    return (
+      <QuestionnairePage
+        onSubmitPressed={postQuestions}
+        onBackPressed={() => setOpenQuestionPage(false)}
+      />
+    );
   }
 
   return (
@@ -82,7 +89,7 @@ const ScreeningPage = () => {
           dateToCompare={screeningData.data?.lastScreeningDate as number}
         />
         <View style={styles.btnContainer}>
-          <Pressable onPress={onPressAddVisit}>
+          <Pressable onPress={() => setOpenQuestionPage(true)}>
             <View style={styles.btnItem}>
               <Text style={styles.btnItemText}>Log recent visit</Text>
             </View>

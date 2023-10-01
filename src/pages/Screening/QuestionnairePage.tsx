@@ -9,13 +9,17 @@ import { API_URL } from "@env";
 
 interface QuestionnairePageProps {
   onSubmitPressed: (props: OnSubmitPressedProps) => void;
+  onBackPressed: () => void;
 }
 
 export interface OnSubmitPressedProps {
   [k: string]: unknown;
 }
 
-const QuestionnairePage = ({ onSubmitPressed }: QuestionnairePageProps) => {
+const QuestionnairePage = ({
+  onSubmitPressed,
+  onBackPressed,
+}: QuestionnairePageProps) => {
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [open, setOpen] = useState(false);
   const [answers, setAnswers] = useState<0 | 1 | 2>(0);
@@ -41,8 +45,16 @@ const QuestionnairePage = ({ onSubmitPressed }: QuestionnairePageProps) => {
     });
   };
 
+  const handleOnBackPressed = () => {
+    onBackPressed();
+  };
+
   return (
     <View style={styles.container}>
+      <Pressable onPress={handleOnBackPressed}>
+        <Text>Go back</Text>
+      </Pressable>
+      <View style={styles.divider}></View>
       <View>
         <Text style={styles.questionText}>Question 1</Text>
         <View style={styles.btnContainer}>
