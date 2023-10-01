@@ -17,7 +17,9 @@ import { fetchGoogleData } from "../api/googleapi";
 
 import jwtDecode from "jwt-decode";
 
+
 const Stack = createNativeStackNavigator();
+
 
 const AppNav = () => {
   const dispatch = useDispatch();
@@ -45,7 +47,7 @@ const AppNav = () => {
 
   useEffect(() => {
     getGooglePlaces();
-    getToken();
+    // getToken();
   }, []);
   return (
     <>

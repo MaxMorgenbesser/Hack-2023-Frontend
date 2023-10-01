@@ -96,7 +96,7 @@ const ScreeningPage = () => {
           openQuestionPage={(value) => setOpenQuestionPage(value)}
         />
         <View style={styles.placeContainer}>
-          <Text style={styles.placeHeading}>Get tested nearby</Text>
+          <Text style={styles.placeHeading}>Screening Available nearby</Text>
         </View>
         <ScreeningMap />
       </ScrollView>
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
   },
   placeHeading: {
     fontSize: 18,
-    paddingLeft:"4.5%",
+    paddingLeft:"6%",
     fontWeight: "bold",
     color: "#333333",
   },

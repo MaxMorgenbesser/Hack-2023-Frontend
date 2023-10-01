@@ -13,6 +13,7 @@ type TabNavigatorParams = {
   ScreeningStack: undefined;
   CarcinogenPage: undefined;
   CitationPage: undefined;
+
 };
 const Tabs = createBottomTabNavigator();
 
@@ -61,7 +62,7 @@ const MainNav = () => {
       <Tabs.Screen name="Tracker" component={TrackerPage} />
       <Tabs.Screen name="Get a Screening" component={ScreeningStack} />
 
-      <Tabs.Screen name="Carcinogens" component={CarcinogenPage} />
+      {/* <Tabs.Screen name="Carcinogens" component={CarcinogenPage} /> */}
       <Tabs.Screen name="Citations" component={CitationPage} />
     </Tabs.Navigator>
   );
