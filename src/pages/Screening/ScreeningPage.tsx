@@ -1,7 +1,7 @@
 import { API_URL } from "@env";
 import axios, { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet, Text, Pressable, SafeAreaView } from "react-native";
 import { useSelector } from "react-redux";
 import { UserSelector } from "../../models/UserModels";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
@@ -10,6 +10,7 @@ import Header from "./Header";
 import { ScreeningProps, ScreeningResponseProps } from "./types/ScreeningProps";
 import { ScreeningState } from "./types/ScreeningState";
 import QuestionnairePage, { OnSubmitPressedProps } from "./QuestionnairePage";
+import { ScrollView } from "react-native";
 
 const ScreeningPage = () => {
   const [screeningData, setScreeningData] = useState<ScreeningState>({
@@ -39,8 +40,6 @@ const ScreeningPage = () => {
         });
       });
   }, []);
-
-  const onPressAddVisit = () => {};
 
   const postQuestions = (args: OnSubmitPressedProps) => {
     axios
@@ -83,25 +82,17 @@ const ScreeningPage = () => {
   }
 
   return (
-    <View>
-      <View>
+    <SafeAreaView>
+      <ScrollView>
         <Header
           dateToCompare={screeningData.data?.lastScreeningDate as number}
+          openQuestionPage={(value) => setOpenQuestionPage(value)}
         />
-        <View style={styles.btnContainer}>
-          <Pressable onPress={() => setOpenQuestionPage(true)}>
-            <View style={styles.btnItem}>
-              <Text style={styles.btnItemText}>Log recent visit</Text>
-            </View>
-          </Pressable>
-          <Pressable>
-            <View style={styles.btnItem}>
-              <Text style={styles.btnItemText}>Schedule a visit</Text>
-            </View>
-          </Pressable>
+        <View style={styles.placeContainer}>
+          <Text style={styles.placeHeading}>Centers near you</Text>
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -123,12 +114,22 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 12,
-    borderColor: "#333333",
-    borderWidth: 2,
+    borderColor: "#2746f8",
+    borderTopWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
+    borderWidth: 4,
   },
   btnItemText: {
     fontSize: 16,
+  },
+  placeContainer: {
+    padding: 16,
+  },
+  placeHeading: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333333",
   },
 });
 
