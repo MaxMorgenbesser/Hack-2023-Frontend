@@ -1,15 +1,11 @@
 import { View, Text, StyleSheet } from "react-native";
 
-
-
 import { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 import { UserSelector } from "../../models/UserModels";
 import { getUserActivities } from "../../api/activityapi";
 import TrackerItem from "../../components/TrackerItem";
-
-
 
 const TrackerPage = () => {
   const user = useSelector((state: UserSelector) => state.user);
