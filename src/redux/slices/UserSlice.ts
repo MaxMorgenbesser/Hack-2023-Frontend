@@ -26,3 +26,4 @@ const UserSlice = createSlice({
 export const { setTempToken, setToken , setId} = UserSlice.actions;
 
 export default UserSlice.reducer;
+
