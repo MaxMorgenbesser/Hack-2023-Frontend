@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+
 import { CodeField, Cursor } from "react-native-confirmation-code-field";
 
 import { useDispatch, useSelector } from "react-redux";
 import { UserSelector } from "../../models/UserModels";
-
 
 import { submitPin } from "../../api/authapi";
 
@@ -13,6 +13,7 @@ import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import FunFactsCarousel from "./PinComponents/FunFactCarosel";
 import jwtDecode from "jwt-decode";
 
 import { setId, setToken } from "../../redux/slices/UserSlice";
@@ -34,9 +35,9 @@ const Pin = () => {
 
       await AsyncStorage.setItem("token", token);
       dispatch(setToken(token));
-      
-      const { _id:id }:any = jwtDecode(token)
-      dispatch(setId(id))
+
+      const { _id: id }: any = jwtDecode(token);
+      dispatch(setId(id));
 
       navigation.navigate("MainNav", { screen: "profile" });
     } catch (err) {
@@ -46,19 +47,24 @@ const Pin = () => {
 
   return (
     <View style={styles.ctr}>
-      <Text>Please enter the pin</Text>
-      <CodeField
-        value={pin}
-        onChangeText={setPin}
-        cellCount={4}
-        keyboardType="numeric"
-        textContentType="oneTimeCode"
-        renderCell={({ index, symbol, isFocused }) => (
-          <Text style={[styles.cell]} key={index}>
-            {symbol || (isFocused ? <Cursor /> : null)}
-          </Text>
-        )}
-      />
+      <View style={styles.carouselContainer}>
+        <FunFactsCarousel />
+      </View>
+      <View style={styles.ctr2}>
+        <Text>Please enter the pin</Text>
+        <CodeField
+          value={pin}
+          onChangeText={setPin}
+          cellCount={4}
+          keyboardType="numeric"
+          textContentType="oneTimeCode"
+          renderCell={({ index, symbol, isFocused }) => (
+            <Text style={[styles.cell]} key={index}>
+              {symbol || (isFocused ? <Cursor /> : null)}
+            </Text>
+          )}
+        />
+      </View>
       <TouchableOpacity style={styles.button} onPress={onSubmitPin}>
         <Text>Submit Pin</Text>
       </TouchableOpacity>
@@ -68,12 +74,16 @@ const Pin = () => {
 
 const styles = StyleSheet.create({
   ctr: {
-    display: "flex",
     flexDirection: "column",
     backgroundColor: "pink",
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
+  },
+  ctr2: {
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
   },
   input: {
     backgroundColor: "white",
@@ -100,6 +110,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     borderColor: "white",
     borderWidth: 1,
+  },
+  carouselContainer: {
+    height: 120, // Adjusted height to account for padding
+    width: "100%",
+    marginBottom: 20,
+    padding: 10, // Add some padding around the carousel
   },
 });
 
