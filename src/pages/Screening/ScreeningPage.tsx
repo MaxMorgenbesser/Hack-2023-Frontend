@@ -1,16 +1,23 @@
 import { API_URL } from "@env";
-import axios, { AxiosResponse } from "axios";
+
+
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Text, Pressable, SafeAreaView } from "react-native";
+import { View, StyleSheet, Text,  } from "react-native";
+
+import axios, { AxiosResponse } from "axios";
+
 import { useSelector } from "react-redux";
 import { UserSelector } from "../../models/UserModels";
-import { ParamListBase, useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import Header from "./Header";
-import { ScreeningProps, ScreeningResponseProps } from "./types/ScreeningProps";
+
+import {  ScreeningResponseProps } from "./types/ScreeningProps";
 import { ScreeningState } from "./types/ScreeningState";
+
+import Header from "./Header";
 import QuestionnairePage, { OnSubmitPressedProps } from "./QuestionnairePage";
+
 import { ScrollView } from "react-native";
+
+import ScreeningMap from "../../components/ScreeningMap";
 
 const ScreeningPage = () => {
   const [screeningData, setScreeningData] = useState<ScreeningState>({
@@ -82,29 +89,32 @@ const ScreeningPage = () => {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
+    
+      <ScrollView style={styles.ctr} >
         <Header
           dateToCompare={screeningData.data?.lastScreeningDate as number}
           openQuestionPage={(value) => setOpenQuestionPage(value)}
         />
         <View style={styles.placeContainer}>
-          <Text style={styles.placeHeading}>Centers near you</Text>
+          <Text style={styles.placeHeading}>Get tested nearby</Text>
         </View>
+        <ScreeningMap />
       </ScrollView>
-    </SafeAreaView>
+   
+
+  
   );
 };
 
 const styles = StyleSheet.create({
   btnContainer: {
-    marginTop: 18,
-    paddingStart: 32,
-    paddingEnd: 32,
+    marginTop: 14,
+    paddingStart: 20,
+    paddingEnd: 20,
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    gap: 18,
+    gap: 10,
   },
   btnItem: {
     width: 150,
@@ -123,11 +133,16 @@ const styles = StyleSheet.create({
   btnItemText: {
     fontSize: 16,
   },
+  ctr: {
+    height:1000,
+    flex:1
+  },
   placeContainer: {
     padding: 16,
   },
   placeHeading: {
     fontSize: 18,
+    paddingLeft:"4.5%",
     fontWeight: "bold",
     color: "#333333",
   },

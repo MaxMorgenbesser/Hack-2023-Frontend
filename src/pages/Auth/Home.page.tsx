@@ -24,7 +24,7 @@ const Home = () => {
   const [number, setNumber] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-  const numberInputRef = useRef(null);
+  const numberInputRef: any = useRef(null);
 
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
@@ -33,7 +33,7 @@ const Home = () => {
   useEffect(() => {
 
     if (numberInputRef?.current) {
-      numberInputRef?.current.focus();
+      numberInputRef?.current?.focus();
     }
 
   }, []);

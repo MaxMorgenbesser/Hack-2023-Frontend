@@ -7,8 +7,15 @@ export interface GoogleSelector {
 }
 
 export interface places {
-  displayName: string;
+  displayName: {
+    text:string,
+    languageCode:string
+  }
   formattedAddress: string;
   priceLevel: string;
   googleMapsUri: string;
+  location: {
+    latitude: number,
+    longitude: number,
+  }
 }
