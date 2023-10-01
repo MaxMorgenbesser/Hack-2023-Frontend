@@ -15,10 +15,14 @@ const TrackerPage = () => {
   const user = useSelector((state: UserSelector) => state.user);
   const [activityData, setActivityData] = useState<ActivityModel>();
   const [loading, setLoading] = useState<boolean>(true);
+  const [keys,setKeys] = useState<string[]>([])
+  const [currentPage,setCurrentPage] = useState<number>(0)
   const getUserActivityData = async () => {
     try {
       const response = await getUserActivities(user._id, user.token);
+      setKeys(Object.keys(response.data.activities).filter(key => key != "date" && key !="_id" && key !="user_id"))
       setActivityData(response.data.activities);
+
     } catch (err) {
       console.error(err);
     } finally {
@@ -29,26 +33,36 @@ const TrackerPage = () => {
     getUserActivityData();
   }, []);
 
+   useEffect(()=> {
+    if (keys.length>0 && activityData) {
+        const values = Object.values(activityData)
+        values.map(value=> {
+            if (value.checked) {
+                setCurrentPage(currentPage+1)
+            }
+        })
+    }
+   }, [keys, activityData])
+
+ 
   return (
     <View style={styles.ctr}>
         <Text style={styles.headerText}>Daily Cancer Risk Check</Text>
         <View style={styles.risksContainer}>
-      {activityData &&
-        Object.keys(activityData).map((activity, a) => {
-          if (activity !== "user_id" && activity !== "date" && activity !== "_id") {
-            return (
+      {activityData && keys && keys.length-1 >=currentPage ?
               <TrackerItem
+              maxLength={keys.length -1}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
               activityData={activityData}
-              setActivityData={setActivityData}
+               setActivityData={setActivityData}
                 _id={activityData._id}
-                key={a}
-                name={activity}
-                checked={(activityData as any)[activity].checked as any}
-                value={(activityData as any)[activity].value}
+                name={keys[currentPage]}
+                checked={(activityData as any)[keys[currentPage]].checked as any}
+                value={(activityData as any)[keys[currentPage]].value}
               ></TrackerItem>
-            );
-          }
-        })}
+              : <Text>Test Completed</Text>
+        }
         </View>
     </View>
   );

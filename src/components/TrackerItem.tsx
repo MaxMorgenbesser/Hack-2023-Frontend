@@ -2,12 +2,12 @@ import { TouchableOpacity, View } from "react-native";
 
 import { Text, StyleSheet } from "react-native";
 
-import Entypo from "react-native-vector-icons/Entypo";
-import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+
 import * as React from "react";
 
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import AntDesign from 'react-native-vector-icons/AntDesign'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+
 import { updateFieldApi } from "../api/activityapi";
 import { useSelector } from "react-redux";
 import { UserSelector } from "../models/UserModels";
@@ -18,38 +18,41 @@ interface props {
   value: boolean;
   _id?: string;
   setActivityData: React.SetStateAction<any>
+  setCurrentPage:React.SetStateAction<any>
+  currentPage:number,
+  maxLength:number,
   activityData:ActivityModel
 }
 
 const iconSize = 20;
 const design = {
   water: {
-    text: "Did you drink enough water today?",
-    icon: <Entypo name="water" size={iconSize} />,
+    text: "Did you drink water?",
+    // icon: <Entypo name="water" size={iconSize} />,
   },
   exercise: {
-    text: "Did you exercise today?",
-    icon: <MaterialCommunityIcons name="dumbbell" size={iconSize} />,
+    text: "Did you exercise?",
+    // icon: <MaterialCommunityIcons name="dumbbell" size={iconSize} />,
   },
   sleep: {
-    text: "Did you get 8 hours of sleep?",
-    icon: <FontAwesome name="bed" size={iconSize} />,
+    text: "Did you sleep 8 hours?",
+    // icon: <FontAwesome name="bed" size={iconSize} />,
   },
   nondrinker: {
-    text: "Did you avoid alcohol today?",
-    icon: <MaterialIcons name="no-drinks" size={iconSize} />,
+    text: "Did you avoid alcohol?",
+    // icon: <MaterialIcons name="no-drinks" size={iconSize} />,
   },
   nonsmoker: {
-    text: "Did you avoid smoking today?",
-    icon: <MaterialIcons name="smoke-free" size={iconSize} />,
+    text: "Did you avoid smoking?",
+    // icon: <MaterialIcons name="smoke-free" size={iconSize} />,
   },
   sunscreen: {
-    text: "Did you use sunscreen today?",
-    icon: <FontAwesome name="umbrella" size={iconSize} />,
+    text: "Did you use sunscreen?",
+    // icon: <FontAwesome name="umbrella" size={iconSize} />,
   },
 };
 
-const TrackerItem = ({ name, checked, value, _id, setActivityData, activityData }: props) => {
+const TrackerItem = ({ name, checked, value, _id, setActivityData, activityData, setCurrentPage, currentPage, maxLength}: props) => {
   const token = useSelector((state: UserSelector) => state.user.token);
   const updateField = async (
     name: string,
@@ -70,7 +73,9 @@ const TrackerItem = ({ name, checked, value, _id, setActivityData, activityData 
           token
         );
         let data = await response.data.fields
+        console.log(response.data)
         setActivityData({...activityData, ...data})
+        setTimeout(()=> setCurrentPage(currentPage+1),1000)
       }
     } catch (err) {
       console.error(err);
@@ -78,9 +83,10 @@ const TrackerItem = ({ name, checked, value, _id, setActivityData, activityData 
   };
 
   return (
-    <TouchableOpacity
+    <>
+    <View
         // disabled={checked}
-      onPress={() => updateField(name, true, true)}
+   
       style={[
         styles.item,
         styles.shadowProp,
@@ -92,21 +98,40 @@ const TrackerItem = ({ name, checked, value, _id, setActivityData, activityData 
         },
       ]}
     >
-      <Text>{(design as any)[name].text}</Text>
-      {(design as any)[name].icon}
-    </TouchableOpacity>
+      <Text style={{marginRight:15, fontSize:20, fontWeight:"800", color:"black"}}>{(design as any)[name].text}</Text>
+  
+    </View>
+    
+     <TouchableOpacity    
+   
+     style={[styles.btn, styles.nbtn]}
+ onPress={() => updateField(name, true, false)}>
+    <Text style={styles.btnTxt}>No</Text>
+ <FontAwesome name="ban" size={24}  />
+ </TouchableOpacity>
+ <TouchableOpacity   style={[styles.btn, styles.gbtn]}  onPress={() => updateField(name, true, true)}>
+ <Text style={styles.btnTxt}>Yes</Text>
+ <AntDesign name="checkcircle" size={24} />
+
+ </TouchableOpacity>
+ </>
   );
 };
 
 const styles = StyleSheet.create({
   item: {
     marginVertical: "1.5%",
-    paddingHorizontal: 20,
+    paddingHorizontal: 30,
     paddingVertical:10,
-  
+    alignItems:"center",
     display:"flex",
+
     flexDirection:"row",
     justifyContent: "space-between"
+  },
+  btnctr: {
+    display:"flex",
+    flexDirection:"row"
   },
   shadowProp: {
     elevation: 20,
@@ -115,5 +140,26 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
   },
+  gbtn: {
+    backgroundColor:"green"
+  },
+  nbtn: {
+backgroundColor:"red",
+marginTop:50
+  },
+  btn: {
+    borderWidth:2,
+    marginVertical:5,
+    display:"flex",
+    flexDirection:"row",
+    justifyContent:"center",
+    alignItems:"center",
+    paddingVertical:4,
+    borderRadius:10
+  },
+  btnTxt:{
+    fontSize:30,
+    marginRight:5
+  }
 });
 export default TrackerItem;
