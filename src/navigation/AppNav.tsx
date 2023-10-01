@@ -43,7 +43,7 @@ const AppNav = () => {
 
   useEffect(() => {
     getGooglePlaces();
-    // getToken();
+    getToken();
   }, []);
   return (
     <>
