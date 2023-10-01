@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Hack-2023-Frontend",
-    "slug": "Hack-2023-Frontend",
+    "name": "Curify",
+    "slug": "Curify",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,16 +15,36 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+      "bundleIdentifier": "com.maxmorgenbesser.Hack2023Frontend",
+      "buildNumber": "2.0",
+      "supportsTablet": false,
+      "isTabletOnly": false,
+      "config": {
+        "usesNonExemptEncryption": false
+       
+      },
+      "android": {
+        "adaptiveIcon": {
+          "foregroundImage": "./assets/adaptive-icon.png",
+          "backgroundColor": "#ffffff"
+        }
+      },
+      "web": {
+        "favicon": "./assets/favicon.png"
+      },
+      "extra": {
+        "eas": {
+          "projectId": "2a20e809-d772-4e45-99dd-f23a1d35db92"
+        }
       }
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "extra": {
+      "eas": {
+        "projectId": "c3b1789d-895a-46f8-818b-52137d2568e9"
+      }
+    },
+    "android": {
+      "package": "com.maxmorgenbesser.Hack2023Frontend"
     }
   }
 }

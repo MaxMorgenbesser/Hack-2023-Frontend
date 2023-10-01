@@ -2,16 +2,13 @@ import React, { useState, useCallback } from "react";
 import { View, Text, StyleSheet, Pressable, Button, Image } from "react-native";
 import { DatePickerModal } from "react-native-paper-dates";
 import moment from "moment";
-
 interface QuestionnairePageProps {
   onSubmitPressed: (props: OnSubmitPressedProps) => void;
   onBackPressed: () => void;
 }
-
 export interface OnSubmitPressedProps {
   [k: string]: unknown;
 }
-
 const QuestionnairePage = ({
   onSubmitPressed,
   onBackPressed,
@@ -19,11 +16,9 @@ const QuestionnairePage = ({
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [open, setOpen] = useState(false);
   const [answers, setAnswers] = useState<0 | 1 | 2>(0);
-
   const onDismissSingle = useCallback(() => {
     setOpen(false);
   }, [setOpen]);
-
   const onConfirmSingle = useCallback(
     (params: any) => {
       setOpen(false);
@@ -31,9 +26,7 @@ const QuestionnairePage = ({
     },
     [setOpen, setDate]
   );
-
   const openModal = () => setOpen(true);
-
   const submitForm = () => {
     onSubmitPressed({
       lastScreeningDate: date?.getTime(),
@@ -41,16 +34,30 @@ const QuestionnairePage = ({
     });
     onBackPressed();
   };
-
   const handleOnBackPressed = () => {
     onBackPressed();
   };
-
+  const fade = {
+    start: 0.8,
+    end: 1,
+  };
+  const scale = {
+    start: 0.96,
+    end: 1,
+  };
   return (
     <View style={styles.container}>
       <View style={styles.goBackContainer}>
-        <Pressable onPress={handleOnBackPressed}>
-          <Text style={{ fontWeight: "bold", color: "#ffffff" }}>Go back</Text>
+        <Pressable
+          onPress={handleOnBackPressed}
+          style={({ pressed }) => [
+            {
+              opacity: pressed ? fade.start : fade.end,
+              transform: [{ scale: pressed ? scale.start : scale.end }],
+            },
+          ]}
+        >
+          <Text style={{ fontWeight: "bold", color: "#F5F5F5" }}>Go back</Text>
         </Pressable>
       </View>
       <Image
@@ -64,62 +71,73 @@ const QuestionnairePage = ({
           </Text>
         </View>
         <View style={styles.btnContainer}>
-          <Pressable onPress={() => setAnswers(1)}>
-            <View
-              style={{
-                ...styles.btnItem,
-                ...(answers === 1 ? styles.selectedBtn : {}),
-              }}
+          <Pressable
+            onPress={() => setAnswers(1)}
+            style={({ pressed }) => [
+              styles.btnItem,
+              answers === 1 ? styles.selectedBtn : {},
+              {
+                opacity: pressed ? fade.start : fade.end,
+                transform: [{ scale: pressed ? scale.start : scale.end }],
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.btnItemText,
+                answers === 1 ? styles.btnItemTextSelected : {},
+              ]}
             >
-              <Text
-                style={{
-                  ...styles.btnItemText,
-                  ...(answers === 1 ? styles.btnItemTextSelected : {}),
-                }}
-              >
-                Yes
-              </Text>
-            </View>
+              Yes
+            </Text>
           </Pressable>
-          <Pressable onPress={() => setAnswers(2)}>
-            <View
-              style={{
-                ...styles.btnItem,
-                ...(answers === 2 ? styles.selectedBtn : {}),
-              }}
+          <Pressable
+            onPress={() => setAnswers(2)}
+            style={({ pressed }) => [
+              styles.btnItem,
+              answers === 2 ? styles.selectedBtn : {},
+              {
+                opacity: pressed ? fade.start : fade.end,
+                transform: [{ scale: pressed ? scale.start : scale.end }],
+              },
+            ]}
+          >
+            <Text
+              style={[
+                styles.btnItemText,
+                answers === 2 ? styles.btnItemTextSelected : {},
+              ]}
             >
-              <Text
-                style={{
-                  ...styles.btnItemText,
-                  ...(answers === 2 ? styles.btnItemTextSelected : {}),
-                }}
-              >
-                No
-              </Text>
-            </View>
+              No
+            </Text>
           </Pressable>
         </View>
         <View style={styles.questionContainer}>
           <Text style={styles.questionText}>When was it ?</Text>
           <Text
-            style={{
-              ...styles.questionText,
-              fontSize: 16,
-              fontWeight: "normal",
-            }}
+            style={[
+              styles.questionText,
+              { fontSize: 16, fontWeight: "normal" },
+            ]}
           >
             {date ? moment(date).format("LL") : ""}
           </Text>
-          <Pressable onPress={openModal}>
-            <View style={styles.questionButton}>
-              <Text style={styles.btnItemText}>{`${
-                date ? "Change" : "Pick"
-              } date`}</Text>
-            </View>
+          <Pressable
+            onPress={openModal}
+            style={({ pressed }) => [
+              styles.questionButton,
+              {
+                opacity: pressed ? fade.start : fade.end,
+                transform: [{ scale: pressed ? scale.start : scale.end }],
+              },
+            ]}
+          >
+            <Text style={styles.btnItemText}>
+              {`${date ? "Change" : "Pick"} date`}
+            </Text>
           </Pressable>
         </View>
         <View style={styles.divider}></View>
-
         <DatePickerModal
           locale="en"
           mode="single"
@@ -134,7 +152,7 @@ const QuestionnairePage = ({
           <Button
             onPress={submitForm}
             title="Submit"
-            color="#2746f8"
+            color="#2746F8"
             accessibilityLabel="Learn more about this purple button"
           />
         </View>
@@ -142,37 +160,46 @@ const QuestionnairePage = ({
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#F5F5F5",
   },
   heroImage: {
     height: 200,
   },
   goBackContainer: {
-    borderColor: "#ee0000",
+    borderColor: "#EE0000",
     borderTopWidth: 3,
-    backgroundColor: "#2746f8",
+    backgroundColor: "#2746F8",
     paddingHorizontal: 16,
     paddingVertical: 12,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   selectedBtn: {
-    backgroundColor: "#2746f8",
-    color: "#ffffff",
-    borderColor: "#2746f8",
+    backgroundColor: "#2746F8",
+    color: "#F5F5F5",
+    borderColor: "#2746F8",
   },
   questionContainer: {
-    backgroundColor: "#2746f8",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#2746F8",
     padding: 16,
   },
   questionText: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#ffffff",
+    color: "#F5F5F5",
   },
   questionButton: {
-    backgroundColor: "#ffffff",
+    backgroundColor: "#F5F5F5",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -180,8 +207,16 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 8,
     marginTop: 18,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
-  questionButtonText: { fontSize: 16, fontWeight: "bold", color: "#2746f8" },
+  questionButtonText: { fontSize: 16, fontWeight: "bold", color: "#2746F8" },
   btnContainer: {
     marginTop: 18,
     marginBottom: 18,
@@ -197,7 +232,7 @@ const styles = StyleSheet.create({
   btnItem: {
     width: 72,
     height: 72,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#F5F5F5",
     flexGrow: 1,
     display: "flex",
     justifyContent: "center",
@@ -205,6 +240,14 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     borderColor: "#333333",
     borderWidth: 2,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   btnItemText: {
     fontSize: 16,
@@ -212,8 +255,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   btnItemTextSelected: {
-    color: "#ffffff",
+    color: "#F5F5F5",
   },
 });
-
 export default QuestionnairePage;
