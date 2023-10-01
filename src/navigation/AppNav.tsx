@@ -26,6 +26,7 @@ const AppNav = () => {
   const getGooglePlaces = async () => {
     try {
      const response =  await fetchGoogleData()
+     
      dispatch(setPlaces(response.data.places))
     }
     catch (err){

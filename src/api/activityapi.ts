@@ -10,7 +10,7 @@ export const getUserActivities = async (user_id:string, token:string) => {
 }
 
 export const updateFieldApi = async (_id:string, body:any, token:string) => {
-    console.log(body)
+
     return axios.put(API_URL + '/activity/' + _id, body, {
         headers: {
             "Authorization": token

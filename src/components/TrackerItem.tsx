@@ -61,7 +61,7 @@ const TrackerItem = ({ name, checked, value, _id, setActivityData, activityData,
   ) => {
     try {
       if (_id) {
-        console.log(_id)
+    
         const response = await updateFieldApi(
           _id,
           {
@@ -73,7 +73,6 @@ const TrackerItem = ({ name, checked, value, _id, setActivityData, activityData,
           token
         );
         let data = await response.data.fields
-        console.log(response.data)
         setActivityData({...activityData, ...data})
         setTimeout(()=> setCurrentPage(currentPage+1),1000)
       }
