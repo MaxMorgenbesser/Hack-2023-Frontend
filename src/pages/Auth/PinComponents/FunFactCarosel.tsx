@@ -4,9 +4,9 @@ import PagerView from "react-native-pager-view";
 
 const FunFactsCarousel: React.FC = () => {
   const [funFacts] = useState<string[]>([
-    "Did you know? The shortest war in history was between Britain and Zanzibar on August 27, 1896. Zanzibar surrendered after 38 minutes.",
-    "Did you know? Honey never spoils. Archeologists have found pots of honey in ancient Egyptian tombs that are over 3,000 years old!",
-    "Did you know? A day on Venus is longer than its year. It takes Venus about 243 Earth days to rotate once on its axis but it takes only 225 Earth days to orbit the Sun.",
+    "Did you know? Regular colorectal cancer screening with colonoscopy can reduce the risk of dying from the disease by about 60-70%.",
+    "Did you know? Mammography screening can reduce breast cancer mortality by about 20% among women aged 40 to 74.",
+    "Did you know? Since the introduction of the Pap test, the incidence and death rate from cervical cancer in the U.S. have decreased by more than 60%.",
   ]);
 
   const [currentPage, setCurrentPage] = useState(0);
@@ -22,7 +22,7 @@ const FunFactsCarousel: React.FC = () => {
       pagerRef.current?.setPage(nextPage);
     };
 
-    const interval = setInterval(changePage, 4000); // change page every 3 seconds
+    const interval = setInterval(changePage, 6000); // change page every 3 seconds
 
     return () => clearInterval(interval); // Clear the interval when the component unmounts
   }, [currentPage, funFacts.length]);
@@ -31,7 +31,7 @@ const FunFactsCarousel: React.FC = () => {
     <PagerView ref={pagerRef} style={styles.viewPager} initialPage={0}>
       {funFacts.map((fact, index) => (
         <View key={index} style={styles.page}>
-          <Text>{fact}</Text>
+          <Text style={styles.fact}>{fact}</Text>
         </View>
       ))}
     </PagerView>
@@ -47,6 +47,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
+  },
+  fact: {
+    fontSize: 15,
   },
 });
 

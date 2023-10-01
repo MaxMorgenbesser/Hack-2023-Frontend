@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -7,9 +7,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   Linking,
-} from "react-native"
+} from "react-native";
 
-import { Citation } from "../../models/CitationModels"
+import { Citation } from "../../models/CitationModels";
 
 const citationList: Citation[] = [
   {
@@ -68,26 +68,49 @@ const citationList: Citation[] = [
       "The transition rate through these stages depends on the cancer type, therefore, understanding this timeline can help pinpoint the optimal time for detection and intervention.",
     url: "https://static1.squarespace.com/static/5e96377a2c8aee64d168790e/t/623b4e466df82b24ef37184e/1648053832293/Crosby+-+2022+-+Science+.pdf",
   },
-]
+  {
+    id: 8,
+    title:
+      "Nelson, H. D., Cantor, A., Humphrey, L., Fu, R., Pappas, M., Daeges, M., & Griffin, J. (2016). Screening for Breast Cancer: A Systematic Review to Update the 2009 U.S. Preventive Services Task Force Recommendation. Annals of Internal Medicine, 164(4), 244-255.",
+    segment:
+      "Mammography screening reduces the risk for breast cancer death by approximately 20% in the populations studied...",
+    url: "https://www.acpjournals.org/doi/10.7326/M15-0969",
+  },
+  {
+    id: 9,
+    title:
+      "American Cancer Society. (2020). Colorectal Cancer Facts & Figures 2020-2022. ",
+    segment:
+      "Regular screening can reduce the risk of dying from colorectal cancer by 60% to 70%.",
+    url: "https://www.cancer.org/content/dam/cancer-org/research/cancer-facts-and-statistics/colorectal-cancer-facts-and-figures/colorectal-cancer-facts-and-figures-2020-2022.pdf",
+  },
+  {
+    id: 10,
+    title: "National Cancer Institute. (n.d.). Pap and HPV Testing. ",
+    segment:
+      "From 1955-1992, the number of cervical cancer deaths in the American population decreased each year by nearly 70% due in large part to the increased use and improved accuracy of the Pap test.",
+    url: "https://www.cancer.gov/types/cervical/pap-hpv-testing-fact-sheet",
+  },
+];
 
 const CitationPage: React.FC = () => {
-  const [expandedItems, setExpandedItems] = useState<number[]>([])
+  const [expandedItems, setExpandedItems] = useState<number[]>([]);
 
   const sortCitations = citationList.sort((a, b) =>
     a.title.localeCompare(b.title)
-  )
+  );
 
   const toggleReadMore = (itemId: number) => {
     setExpandedItems((prev) =>
       prev.includes(itemId)
         ? prev.filter((id) => id !== itemId)
         : [...prev, itemId]
-    )
-  }
+    );
+  };
 
   const handleLinkPress = (url: string) => {
-    Linking.openURL(url)
-  }
+    Linking.openURL(url);
+  };
 
   return (
     <SafeAreaView>
@@ -111,7 +134,7 @@ const CitationPage: React.FC = () => {
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {
-                    handleLinkPress(item.url)
+                    handleLinkPress(item.url);
                   }}
                 >
                   <Text style={styles.link}>Source</Text>
@@ -122,8 +145,8 @@ const CitationPage: React.FC = () => {
         </View>
       </ScrollView>
     </SafeAreaView>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -155,6 +178,6 @@ const styles = StyleSheet.create({
   link: {
     color: "blue",
   },
-})
+});
 
-export default CitationPage
+export default CitationPage;

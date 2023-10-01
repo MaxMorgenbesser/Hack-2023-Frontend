@@ -78,7 +78,7 @@ const Pin = () => {
 const styles = StyleSheet.create({
   ctr: {
     flexDirection: "column",
-    backgroundColor: "#f5dbf4",
+    backgroundColor: "#F5F5F5",
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     // color: "white",
   },
   cell: {
-    backgroundColor: "#FFFFFF26",
+    backgroundColor: "white",
     borderRadius: 15,
     overflow: "hidden",
     height: 85,
