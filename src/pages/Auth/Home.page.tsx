@@ -23,13 +23,13 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 const Home = () => {
   const [number, setNumber] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const numberInputRef = useRef<null>(null);
+  const numberInputRef:any = useRef<null>(null);
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    numberInputRef.current.focus();
+    numberInputRef?.current?.focus();
   }, []);
 
   const pressSubmitNumber = async () => {

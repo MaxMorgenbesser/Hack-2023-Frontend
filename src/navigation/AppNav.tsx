@@ -12,6 +12,8 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 import { setId } from "../redux/slices/UserSlice";
 import { setToken } from "../redux/slices/UserSlice";
+import { setPlaces } from "../redux/slices/GoogleSlice";
+import { fetchGoogleData } from "../api/googleapi";
 
 import jwtDecode from "jwt-decode";
 
@@ -21,7 +23,15 @@ const AppNav = () => {
   const dispatch = useDispatch();
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-
+  const getGooglePlaces = async () => {
+    try {
+     const response =  await fetchGoogleData()
+     dispatch(setPlaces(response.data.places))
+    }
+    catch (err){
+      console.error(err)
+    }
+  }
   const getToken = async () => {
     const token = await AsyncStorage.getItem("token");
     if (token) {
@@ -33,6 +43,7 @@ const AppNav = () => {
   };
 
   useEffect(() => {
+    getGooglePlaces()
     getToken();
   }, []);
   return (
