@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-import { View, Text, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Platform } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 
 import { CodeField, Cursor } from "react-native-confirmation-code-field";
 
@@ -48,8 +55,9 @@ const Pin = () => {
 
   return (
     <KeyboardAvoidingView
-    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    style={styles.ctr}>
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.ctr}
+    >
       <View style={styles.carouselContainer}>
         <FunFactsCarousel />
       </View>
@@ -73,14 +81,14 @@ const Pin = () => {
         {/* <Text>Submit Pin</Text> */}
         <Icon name="rightcircleo" size={40} />
       </TouchableOpacity>
-    </KeyboardAvoidingView >
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   ctr: {
     flexDirection: "column",
-    backgroundColor: "#f5dbf4",
+    backgroundColor: "#F5F5F5",
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
