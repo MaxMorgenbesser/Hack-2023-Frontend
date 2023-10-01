@@ -7,7 +7,15 @@ import { useSelector } from "react-redux";
 import { UserSelector } from "../../models/UserModels";
 import { API_URL } from "@env";
 
-const QuestionnairePage = () => {
+interface QuestionnairePageProps {
+  onSubmitPressed: (props: OnSubmitPressedProps) => void;
+}
+
+export interface OnSubmitPressedProps {
+  [k: string]: unknown;
+}
+
+const QuestionnairePage = ({ onSubmitPressed }: QuestionnairePageProps) => {
   const [date, setDate] = useState<Date | undefined>(undefined);
   const [open, setOpen] = useState(false);
   const [answers, setAnswers] = useState<0 | 1 | 2>(0);
@@ -26,27 +34,11 @@ const QuestionnairePage = () => {
 
   const openModal = () => setOpen(true);
 
-  const token = useSelector((state: UserSelector) => state.user.token);
-  const url = API_URL + "/screening";
-
   const submitForm = () => {
-    axios
-      .post(
-        url,
-        {
-          lastScreeningDate: date?.getTime(),
-          screened: answers === 1 ? true : false,
-        },
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
-      )
-      .then((res) => {
-        // move to other page
-        console.log("can go to other page now");
-      });
+    onSubmitPressed({
+      lastScreeningDate: date?.getTime(),
+      screened: answers === 1 ? true : false,
+    });
   };
 
   return (
@@ -93,6 +85,7 @@ const QuestionnairePage = () => {
           onDismiss={onDismissSingle}
           date={date}
           onConfirm={onConfirmSingle}
+          validRange={{ endDate: new Date() }}
         />
         <View style={styles.divider}></View>
         <Button

@@ -1,5 +1,5 @@
 import { API_URL } from "@env";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, Pressable } from "react-native";
 import { useSelector } from "react-redux";
@@ -7,9 +7,9 @@ import { UserSelector } from "../../models/UserModels";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import Header from "./Header";
-import { ScreeningResponseProps } from "./types/ScreeningProps";
+import { ScreeningProps, ScreeningResponseProps } from "./types/ScreeningProps";
 import { ScreeningState } from "./types/ScreeningState";
-import QuestionnairePage from "./QuestionnairePage";
+import QuestionnairePage, { OnSubmitPressedProps } from "./QuestionnairePage";
 
 const ScreeningPage = () => {
   const [screeningData, setScreeningData] = useState<ScreeningState>({
@@ -39,8 +39,25 @@ const ScreeningPage = () => {
       });
   }, []);
 
-  const onPressAddVisit = () => {
-    navigation.navigate("screening_questions");
+  const onPressAddVisit = () => {};
+
+  const postQuestions = (args: OnSubmitPressedProps) => {
+    axios
+      .post<any, AxiosResponse<ScreeningResponseProps>>(
+        url,
+        {
+          lastScreeningDate: args.lastScreeningDate,
+          screened: args.screened,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      )
+      .then((res) => {
+        setScreeningData({ loading: false, data: res.data.data });
+      });
   };
 
   if (screeningData.loading) {
@@ -55,13 +72,15 @@ const ScreeningPage = () => {
     !screeningData.loading &&
     (!screeningData.data || !Object.keys(screeningData.data).length)
   ) {
-    return <QuestionnairePage />;
+    return <QuestionnairePage onSubmitPressed={postQuestions} />;
   }
 
   return (
     <View>
       <View>
-        <Header />
+        <Header
+          dateToCompare={screeningData.data?.lastScreeningDate as number}
+        />
         <View style={styles.btnContainer}>
           <Pressable onPress={onPressAddVisit}>
             <View style={styles.btnItem}>

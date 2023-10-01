@@ -1,12 +1,21 @@
+import moment from "moment";
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-const Header = () => {
+interface HeaderProps {
+  dateToCompare: number;
+}
+
+const Header = ({ dateToCompare }: HeaderProps) => {
+  const today = moment(new Date());
+  const toCompare = moment(dateToCompare);
+  const daysToShow = today.diff(toCompare, "days");
+
   return (
     <View style={styles.heroContainer}>
       <View style={styles.heroItems}>
         <View style={styles.heroHeading}>
-          <Text style={styles.heroHeadingDays}>68</Text>
+          <Text style={styles.heroHeadingDays}>{daysToShow}</Text>
           <Text style={styles.heroHeadingCopy}>days</Text>
         </View>
         <Text style={styles.heroSubCopy}>Since your last pre-screening</Text>
