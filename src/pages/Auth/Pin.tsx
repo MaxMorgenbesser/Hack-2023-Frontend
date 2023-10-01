@@ -111,11 +111,12 @@ const styles = StyleSheet.create({
     borderColor: "white",
     borderWidth: 1,
   },
+  // carosel
   carouselContainer: {
-    height: 120, // Adjusted height to account for padding
+    height: 120,
     width: "100%",
     marginBottom: 20,
-    padding: 10, // Add some padding around the carousel
+    padding: 10,
   },
 });
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import {
   TextInput,
@@ -8,25 +8,33 @@ import {
   Pressable,
   Keyboard,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 
 import { useDispatch } from "react-redux";
 import { setTempToken } from "../../redux/slices/UserSlice";
 import { submitNumber } from "../../api/authapi";
 
+import Icon from "react-native-vector-icons/AntDesign";
 import formatPhoneNumber from "../../utils/FormatPhoneNumber";
 import { useNavigation, ParamListBase } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 const Home = () => {
   const [number, setNumber] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const numberInputRef = useRef<null>(null);
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    numberInputRef.current.focus();
+  }, []);
+
   const pressSubmitNumber = async () => {
     if (!number || number.length < 10) {
+      setError("This number is entered incorrectly");
       return;
     }
     try {
@@ -42,33 +50,34 @@ const Home = () => {
 
   return (
     <Pressable style={styles.ctr} onPress={() => Keyboard.dismiss()}>
-
       <Image
-      source={require('../../../assets/images/acs-logo.png')} 
-      style={styles.logo
-      }/>
+        source={require("../../../assets/images/acs-logo.png")}
+        style={styles.logo}
+      />
 
-    <Text></Text>
-    <Text></Text>
-      <TextInput
-        keyboardType="number-pad"
-        style={styles.input}
-        value={number}
-        onChangeText={(value) => setNumber(formatPhoneNumber(value, number))}
-        placeholder="Enter your phone number"
-      ></TextInput>
+      <Text></Text>
+      <Text></Text>
+      <View style={styles.flexContainer}>
+        <TextInput
+          ref={numberInputRef}
+          keyboardType="number-pad"
+          style={styles.input}
+          value={number}
+          onChangeText={(value) => setNumber(formatPhoneNumber(value, number))}
+          placeholder="Enter your phone number"
+        ></TextInput>
+        <TouchableOpacity onPress={() => pressSubmitNumber()}>
+          <Icon name="rightcircleo" size={40} style={styles.submitArrow} />
+          {/* <Text>Submit Number</Text> */}
+        </TouchableOpacity>
+      </View>
+      <Text>{error}</Text>
       <Text></Text>
       <Text>we will send you an authentication code</Text>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => pressSubmitNumber()}
-      >
-        <Text>Submit Number</Text>
-      </TouchableOpacity>
-      <View 
-      style={styles.bottomText}>
-      <Text>Cancer information, answers, and hope.</Text>
-      <Text>Available every minute of every day.</Text>
+
+      <View style={styles.bottomText}>
+        <Text>Cancer information, answers, and hope.</Text>
+        <Text>Available every minute of every day.</Text>
       </View>
     </Pressable>
   );
@@ -78,9 +87,9 @@ const styles = StyleSheet.create({
   ctr: {
     display: "flex",
     flexDirection: "column",
-    backgroundColor: "#fff",
-    
-    zIndex:-1,
+    backgroundColor: "#f5dbf4",
+
+    zIndex: -1,
     alignItems: "center",
     justifyContent: "center",
     height: "100%",
@@ -88,31 +97,44 @@ const styles = StyleSheet.create({
   },
   input: {
     backgroundColor: "white",
-   borderColor: "black",
-   borderWidth: 2,
-   borderRadius: 5,
-    width: "80%",
-    height: "10%",
-    textAlign: "center",
+    borderColor: "black",
+    borderWidth: 2,
+    borderRadius: 5,
+    width: "70%",
+    height: 50,
+    paddingHorizontal: 20,
+    marginTop: 20,
+    marginBottom: 10,
+    // textAlign: "center",
   },
   button: {
     marginTop: 30,
     backgroundColor: "#2746f8",
     borderRadius: 5,
     padding: 10,
-    borderColor:"white",
-
+    borderColor: "white",
   },
-  logo:{
-    width: 250,
-    height: 130,
+  logo: {
+    width: 260,
+    height: 140,
   },
 
-  bottomText:{
-    marginTop: 100,
-    textAlign:"center"
+  bottomText: {
+    marginTop: 120,
+    textAlign: "center",
+  },
 
-  }
+  flexContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  submitArrow: {
+    marginTop: 10,
+    marginLeft: 5,
+  },
 });
 
 export default Home;
