@@ -21,13 +21,13 @@ const AppNav = () => {
   const dispatch = useDispatch();
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-  
+
   const getToken = async () => {
     const token = await AsyncStorage.getItem("token");
     if (token) {
       dispatch(setToken(token));
-      const { _id }:any = jwtDecode(token)
-      dispatch(setId(_id))
+      const { _id }: any = jwtDecode(token);
+      dispatch(setId(_id));
       navigation.navigate("MainNav");
     }
   };
