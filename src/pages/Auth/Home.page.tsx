@@ -54,7 +54,7 @@ const Home = () => {
   return (
     <Pressable style={styles.ctr} onPress={() => Keyboard.dismiss()}>
       <Image
-        source={require("../../../assets/images/acs-logo.png")}
+        source={require("../../../assets/images/android-chrome-512x512.png")}
         style={styles.logo}
       />
 
@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
     borderColor: "white",
   },
   logo: {
-    width: 260,
-    height: 140,
+    width: 300,
+    height: 300,
   },
 
   bottomText: {
