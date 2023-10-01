@@ -1,11 +1,7 @@
 import React, { useState, useCallback } from "react";
-import { View, Text, StyleSheet, Pressable, Button } from "react-native";
+import { View, Text, StyleSheet, Pressable, Button, Image } from "react-native";
 import { DatePickerModal } from "react-native-paper-dates";
 import moment from "moment";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { UserSelector } from "../../models/UserModels";
-import { API_URL } from "@env";
 
 interface QuestionnairePageProps {
   onSubmitPressed: (props: OnSubmitPressedProps) => void;
@@ -43,6 +39,7 @@ const QuestionnairePage = ({
       lastScreeningDate: date?.getTime(),
       screened: answers === 1 ? true : false,
     });
+    onBackPressed();
   };
 
   const handleOnBackPressed = () => {
@@ -51,12 +48,21 @@ const QuestionnairePage = ({
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={handleOnBackPressed}>
-        <Text>Go back</Text>
-      </Pressable>
-      <View style={styles.divider}></View>
+      <View style={styles.goBackContainer}>
+        <Pressable onPress={handleOnBackPressed}>
+          <Text style={{ fontWeight: "bold", color: "#ffffff" }}>Go back</Text>
+        </Pressable>
+      </View>
+      <Image
+        source={require("../../../assets/images/awareness_image.jpeg")}
+        style={styles.heroImage}
+      />
       <View>
-        <Text style={styles.questionText}>Question 1</Text>
+        <View style={styles.questionContainer}>
+          <Text style={styles.questionText}>
+            Have you had a recent cancer pre-screening?
+          </Text>
+        </View>
         <View style={styles.btnContainer}>
           <Pressable onPress={() => setAnswers(1)}>
             <View
@@ -65,7 +71,14 @@ const QuestionnairePage = ({
                 ...(answers === 1 ? styles.selectedBtn : {}),
               }}
             >
-              <Text style={styles.btnItemText}>Yes</Text>
+              <Text
+                style={{
+                  ...styles.btnItemText,
+                  ...(answers === 1 ? styles.btnItemTextSelected : {}),
+                }}
+              >
+                Yes
+              </Text>
             </View>
           </Pressable>
           <Pressable onPress={() => setAnswers(2)}>
@@ -75,21 +88,38 @@ const QuestionnairePage = ({
                 ...(answers === 2 ? styles.selectedBtn : {}),
               }}
             >
-              <Text style={styles.btnItemText}>No</Text>
+              <Text
+                style={{
+                  ...styles.btnItemText,
+                  ...(answers === 2 ? styles.btnItemTextSelected : {}),
+                }}
+              >
+                No
+              </Text>
             </View>
           </Pressable>
         </View>
-        <Text style={styles.questionText}>Question 2</Text>
+        <View style={styles.questionContainer}>
+          <Text style={styles.questionText}>When was it ?</Text>
+          <Text
+            style={{
+              ...styles.questionText,
+              fontSize: 16,
+              fontWeight: "normal",
+            }}
+          >
+            {date ? moment(date).format("LL") : ""}
+          </Text>
+          <Pressable onPress={openModal}>
+            <View style={styles.questionButton}>
+              <Text style={styles.btnItemText}>{`${
+                date ? "Change" : "Pick"
+              } date`}</Text>
+            </View>
+          </Pressable>
+        </View>
         <View style={styles.divider}></View>
-        <Text>{date ? moment(date).format("LL") : ""}</Text>
-        <View style={styles.divider}></View>
-        <Pressable onPress={openModal}>
-          <View style={styles.btnItem}>
-            <Text style={styles.btnItemText}>{`${
-              date ? "Change" : "Pick"
-            } date`}</Text>
-          </View>
-        </Pressable>
+
         <DatePickerModal
           locale="en"
           mode="single"
@@ -100,12 +130,14 @@ const QuestionnairePage = ({
           validRange={{ endDate: new Date() }}
         />
         <View style={styles.divider}></View>
-        <Button
-          onPress={submitForm}
-          title="Submit"
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-        />
+        <View style={{ paddingHorizontal: 32 }}>
+          <Button
+            onPress={submitForm}
+            title="Submit"
+            color="#2746f8"
+            accessibilityLabel="Learn more about this purple button"
+          />
+        </View>
       </View>
     </View>
   );
@@ -113,41 +145,74 @@ const QuestionnairePage = ({
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    backgroundColor: "#ffffff",
+  },
+  heroImage: {
+    height: 200,
+  },
+  goBackContainer: {
+    borderColor: "#ee0000",
+    borderTopWidth: 3,
+    backgroundColor: "#2746f8",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
   },
   selectedBtn: {
-    backgroundColor: "#b2f6ff",
+    backgroundColor: "#2746f8",
+    color: "#ffffff",
+    borderColor: "#2746f8",
+  },
+  questionContainer: {
+    backgroundColor: "#2746f8",
+    padding: 16,
   },
   questionText: {
     fontSize: 18,
-    color: "#333333",
     fontWeight: "bold",
+    color: "#ffffff",
+  },
+  questionButton: {
+    backgroundColor: "#ffffff",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: 150,
+    padding: 8,
+    borderRadius: 8,
     marginTop: 18,
   },
+  questionButtonText: { fontSize: 16, fontWeight: "bold", color: "#2746f8" },
   btnContainer: {
     marginTop: 18,
+    marginBottom: 18,
+    padding: 16,
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
     gap: 18,
   },
   divider: {
     marginBottom: 16,
   },
   btnItem: {
-    width: 150,
-    height: 92,
+    width: 72,
+    height: 72,
     backgroundColor: "#ffffff",
     flexGrow: 1,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 12,
+    borderRadius: 100,
     borderColor: "#333333",
     borderWidth: 2,
   },
   btnItemText: {
     fontSize: 16,
+    color: "#333333",
+    fontWeight: "bold",
+  },
+  btnItemTextSelected: {
+    color: "#ffffff",
   },
 });
 
