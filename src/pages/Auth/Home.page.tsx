@@ -77,7 +77,7 @@ const Home = () => {
       </View>
       <Text>{error}</Text>
       <Text></Text>
-      <Text>we will send you an authentication code</Text>
+      <Text>We will send you an authentication code</Text>
 
       <View style={styles.bottomText}>
         <Text>Cancer information, answers, and hope.</Text>
